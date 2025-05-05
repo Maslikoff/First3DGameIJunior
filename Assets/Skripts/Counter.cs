@@ -13,34 +13,46 @@ public class Counter : MonoBehaviour
 
     private void Update()
     {
-        ClickStartStop();
+        if (Input.GetMouseButtonDown(0))
+            ClickStartStop();
     }
 
     private void ClickStartStop()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (_isCounting)
         {
-            if (_isCounting)
-            {
-                StopAllCoroutines();
-                _isCounting = false;
+            _isCounting = false;
+            StopCoroutine(CountEveryHalfSecond());
 
-                Debug.Log("Counter stopped at: " + _counterValue);
-            }
-            else
-            {
-                StartCoroutine(CountEveryHalfSecond());
-                _isCounting = true;
+            Debug.Log("Counter stopped at: " + _counterValue);
+        }
+        else
+        {
+            _isCounting = true;
+            StartCoroutine(CountEveryHalfSecond());
 
-                Debug.Log("Counter started");
-            }
+            Debug.Log("Counter started");
         }
     }
 
     private IEnumerator CountEveryHalfSecond()
     {
-        yield return new WaitForSeconds(_pauseTime);
+        while (_isCounting)
+        {
+            yield return new WaitForSeconds(_pauseTime);
+            Ñalculation();
+            PrintText();
+        }
+    }
+
+    private void Ñalculation()
+    {
         _counterValue++;
-        _counterText.text = _counterValue.ToString();
+    }
+
+    private void PrintText()
+    {
+        if (_counterText != null)
+            _counterText.text = _counterValue.ToString();
     }
 }
