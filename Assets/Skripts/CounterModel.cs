@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class CounterModel : MonoBehaviour
 {
+    public event Action OnCountChanged;
+
     [SerializeField] private float _pauseTime = 0.5f;
 
     private Coroutine _countingCoroutine;
@@ -23,17 +26,20 @@ public class CounterModel : MonoBehaviour
 
     private void StartCounting()
     {
-        _isCounting = true;
+        if (_isCounting) return;
 
-        if (_countingCoroutine != null)
-            StopCoroutine(_countingCoroutine);
+        _isCounting = true;
 
         _countingCoroutine = StartCoroutine(CountingRoutine());
     }
 
     private void StopCounting()
     {
+        if (_isCounting == false) return;
+
         _isCounting = false;
+
+        OnCountChanged?.Invoke();
 
         if (_countingCoroutine != null)
             StopCoroutine(_countingCoroutine);
@@ -46,9 +52,9 @@ public class CounterModel : MonoBehaviour
         while (_isCounting)
         {
             _counterValue++;
+            OnCountChanged?.Invoke();
 
             yield return wait;
         }
-
     }
 }
