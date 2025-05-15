@@ -13,7 +13,6 @@ public class CounterModel : MonoBehaviour
 
     public event Action<int> CountChanged;
 
-    public int CounterValue => _counterValue;
     public bool IsCounting => _isCounting;
 
     public void ToggleCounting()

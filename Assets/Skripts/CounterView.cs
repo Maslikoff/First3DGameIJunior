@@ -15,7 +15,6 @@ public class CounterView : MonoBehaviour
     private void OnEnable()
     {
         _counterModel.CountChanged += UpdateCounterText;
-        UpdateCounterText(_counterModel.CounterValue);
     }
 
     private void OnDisable()
@@ -25,8 +24,6 @@ public class CounterView : MonoBehaviour
 
     private void UpdateCounterText(int count)
     {
-        count = _counterModel.CounterValue;
-
         if (_counterText != null)
             _counterText.text = count.ToString();
     }

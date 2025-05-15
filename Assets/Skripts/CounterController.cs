@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class CounterController : MonoBehaviour
 {
-    private InputReader _inputReader;
+    [SerializeField] private InputReader _inputReader;
+
     private CounterModel _counterModel;
 
     private void Awake()
     {
-        _inputReader = FindObjectOfType<InputReader>();
         _counterModel = GetComponent<CounterModel>();
     }
 
@@ -24,8 +24,5 @@ public class CounterController : MonoBehaviour
     private void OnMouseLeftClicked()
     {
         _counterModel.ToggleCounting();
-        Debug.Log(_counterModel.IsCounting
-            ? $"Counter started at: {_counterModel.CounterValue}"
-            : $"Counter stopped at: {_counterModel.CounterValue}");
     }
 }
