@@ -14,34 +14,20 @@ public class CounterView : MonoBehaviour
 
     private void OnEnable()
     {
-        _counterModel.OnCountChanged += UpdateCounterText;
-        UpdateCounterText();
+        _counterModel.CountChanged += UpdateCounterText;
+        UpdateCounterText(_counterModel.CounterValue);
     }
 
     private void OnDisable()
     {
-        _counterModel.OnCountChanged -= UpdateCounterText;
+        _counterModel.CountChanged -= UpdateCounterText;
     }
 
-    private void Update()
+    private void UpdateCounterText(int count)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _counterModel.ToggleCounting();
-            LogCounterState();
-        }
-    }
+        count = _counterModel.CounterValue;
 
-    private void UpdateCounterText()
-    {
         if (_counterText != null)
-            _counterText.text = _counterModel.CounterValue.ToString();
-    }
-
-    private void LogCounterState()
-    {
-        Debug.Log(_counterModel.IsCounting
-            ? $"Counter started at: {_counterModel.CounterValue}"
-            : $"Counter stopped at: {_counterModel.CounterValue}");
+            _counterText.text = count.ToString();
     }
 }
