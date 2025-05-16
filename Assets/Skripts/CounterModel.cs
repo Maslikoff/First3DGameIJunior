@@ -32,7 +32,8 @@ public class CounterModel : MonoBehaviour
 
     private void StopCounting()
     {
-        if (_isCounting == false) return;
+        if (_isCounting == false) 
+            return;
 
         _isCounting = false;
 

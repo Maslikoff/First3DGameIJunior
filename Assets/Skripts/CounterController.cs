@@ -13,12 +13,12 @@ public class CounterController : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputReader.MouseLeftCliked += OnMouseLeftClicked;
+        _inputReader.MouseCliked += OnMouseLeftClicked;
     }
 
     private void OnDisable()
     {
-        _inputReader.MouseLeftCliked -= OnMouseLeftClicked;
+        _inputReader.MouseCliked -= OnMouseLeftClicked;
     }
 
     private void OnMouseLeftClicked()
