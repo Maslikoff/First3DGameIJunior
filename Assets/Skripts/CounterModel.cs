@@ -7,13 +7,17 @@ public class CounterModel : MonoBehaviour
     [SerializeField] private float _pauseTime = 0.5f;
 
     private Coroutine _countingCoroutine;
+    private WaitForSeconds _wait;
     private int _counterValue = 0;
 
     private bool _isCounting = false;
 
     public event Action<int> CountChanged;
 
-    public bool IsCounting => _isCounting;
+    private void Awake()
+    {
+        _wait = new WaitForSeconds(_pauseTime);
+    }
 
     public void ToggleCounting()
     {
@@ -45,14 +49,12 @@ public class CounterModel : MonoBehaviour
 
     private IEnumerator CountingRoutine()
     {
-        var wait = new WaitForSeconds(_pauseTime);
-
         while (_isCounting)
         {
             _counterValue++;
             CountChanged?.Invoke(_counterValue);
 
-            yield return wait;
+            yield return _wait;
         }
     }
 }

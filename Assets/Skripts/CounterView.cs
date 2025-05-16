@@ -24,7 +24,6 @@ public class CounterView : MonoBehaviour
 
     private void UpdateCounterText(int count)
     {
-        if (_counterText != null)
-            _counterText.text = count.ToString();
+        _counterText.text = count.ToString();
     }
 }
